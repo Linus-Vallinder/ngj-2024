@@ -5,7 +5,8 @@ using UnityEngine.Serialization;
 public class BeatKeeper : MonoBehaviour
 {
     public event Action StageEnded;
-    public event Action<int> NextBar; 
+    public event Action<int> QuaverUpdate;
+    public event Action<int> NextBar;
 
     [SerializeField]
     protected AudioSource _MainSource;
@@ -95,6 +96,7 @@ public class BeatKeeper : MonoBehaviour
         if (SongPosition > (CurrentEigthHit + 1) * (Quaver))
         {
             CurrentEigthHit += 1;
+            QuaverUpdate?.Invoke(CurrentEigthHit);
         }
     }
 }
