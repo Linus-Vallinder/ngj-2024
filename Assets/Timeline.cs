@@ -96,6 +96,7 @@ public class Timeline : MonoBehaviour
             
             if (t.Crotchet && fourthBeat == t.BeatPosition || btn.activeInHierarchy)
             {
+                t.InternalPos = (_BeatKeeper.CurrentCrotchetHit - t.BeatPosition) % 4;
                 var pos = btn.transform.position;
                 pos.y = Mathf.Lerp(_StartPosition.position.y - LengthBetweenCrotchetSeg * t.InternalPos, _StartPosition.position.y - LengthBetweenCrotchetSeg * (t.InternalPos + 1), fourthTime);
                 btn.transform.position = pos;
@@ -109,8 +110,9 @@ public class Timeline : MonoBehaviour
 
             if (!t.Crotchet && eightBeat == t.BeatPosition || btn.activeInHierarchy)
             {
+                t.InternalPos = (_BeatKeeper.CurrentEigthHit - t.BeatPosition) % 8;
                 var pos = btn.transform.position;
-                pos.y = Mathf.Lerp(_StartPosition.position.y - LengthBetweenEightsSeg * eightBeat, _StartPosition.position.y - LengthBetweenEightsSeg * (eightBeat + 1), eightTime);
+                pos.y = Mathf.Lerp(_StartPosition.position.y - LengthBetweenEightsSeg * t.InternalPos, _StartPosition.position.y - LengthBetweenEightsSeg * (t.InternalPos + 1), eightTime);
                 btn.transform.position = pos;
                 btn.SetActive(true);
                 

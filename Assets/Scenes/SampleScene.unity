@@ -465,8 +465,9 @@ MonoBehaviour:
   _MainSource: {fileID: 2065206053}
   BarLength: 4
   BPM: 100
-  Offset: 0.2
-  CurrentHit: 0
+  Offset: 0.15
+  CurrentCrotchetHit: 0
+  CurrentEigthHit: 0
   SongPosition: 0
 --- !u!4 &1529970563
 Transform:
