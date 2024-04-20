@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ProgressBar : MonoBehaviour
@@ -32,8 +30,7 @@ public class ProgressBar : MonoBehaviour
     
     public void UpdatePosition(float time)
     {
-        DickIcon.position =
-            Vector2.Lerp(StartPoint.position, EndPoint.position, time / EndTime);
+        DickIcon.position = Vector2.Lerp(StartPoint.position, EndPoint.position, time / EndTime);
     }
 
     public void Stop()

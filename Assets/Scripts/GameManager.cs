@@ -112,6 +112,7 @@ public class GameManager : MonoBehaviour
         }        
     }
 
+    private ProgressBar _progressBar;
     private TextBox _textBox;
     private bool OpeningIsDone;
     
@@ -130,6 +131,7 @@ public class GameManager : MonoBehaviour
         }
 
         _textBox = FindObjectOfType<TextBox>();
+        _progressBar = FindObjectOfType<ProgressBar>();
     }
 
     private void Start()
@@ -179,6 +181,10 @@ public class GameManager : MonoBehaviour
                 GameState = GameState.IDLE;
                 OpeningIsDone = true;
                 _textBox.HideTextBox();
+                
+                FindObjectOfType<SpinSphere>().StartSpin();
+                
+                Debug.Log("WE ARE SPINNIN OPE FULLY");
             };
         }  
     }
