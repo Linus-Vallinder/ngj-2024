@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public enum GameState
 {
     IDLE,
+    OPENING,
     PLAYING,
     WIN,
     LOSE,
@@ -48,8 +49,6 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    
-    
     public Action<InputType> OnInput;
     public Action<int> OnHealthUpdate;
     public Action<GameState> OnGameStateUpdate;
@@ -111,6 +110,9 @@ public class GameManager : MonoBehaviour
             OnGameStateUpdate?.Invoke(gameState);
         }        
     }
+
+    private TextBox _textBox;
+    private bool OpeningIsDone;
     
     #region Unity Methods
 
@@ -125,6 +127,8 @@ public class GameManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
+
+        _textBox = FindObjectOfType<TextBox>();
     }
 
     private void Start()
@@ -145,7 +149,7 @@ public class GameManager : MonoBehaviour
 
     public void HandleOnAny()
     {
-        if (GameState == GameState.IDLE)
+        if (GameState == GameState.IDLE && OpeningIsDone)
         {
             Init();
 
@@ -153,17 +157,27 @@ public class GameManager : MonoBehaviour
             BeatKeeper.Play();
             Timeline.Play(Bar.GetRandomStage(16));
         }
+        else if (GameState == GameState.IDLE)
+        {
+            GameState = GameState.OPENING;
+            _textBox.ShowTextBox();
+
+            _textBox.OnEventDone += @event =>
+            {
+                if (!_textBox.IsOpeningEvent(@event))
+                    return;
+                
+                GameState = GameState.IDLE;
+                OpeningIsDone = true;
+                _textBox.HideTextbox();
+            };
+        } 
     }
     
     #region Input Handling
 
     private void OnInputHandler(InputType type)
     {
-        CurrentLives -= 1;
-
-        if (CurrentLives <= 0)
-            CurrentLives = 4;
-        
         OnInput?.Invoke(type);
     }
 
