@@ -7,16 +7,19 @@ using Random = System.Random;
 public class Enemy
 {
     private static List<Func<List<Enemy>>> AllPatterns;
+    private static Random Rand;
+    private static int InputCount;
     
     public static List<Enemy> GetRandomPattern()
     {
-        Random rand = new Random();
-        return AllPatterns[rand.Next(AllPatterns.Count)].Invoke();
+        return AllPatterns[Rand.Next(AllPatterns.Count)].Invoke();
     }
 
     static Enemy()
     {
+        Rand = new Random();
         AllPatterns = new List<Func<List<Enemy>>>();
+        InputCount = Enum.GetValues(typeof(InputType)).Length;
         AllPatterns.Add(Patter_One);
         AllPatterns.Add(Patter_Two);
         AllPatterns.Add(Patter_Four);
@@ -29,11 +32,13 @@ public class Enemy
         
         Enemy enemy = new Enemy();
         enemy.Crotchet = true;
+        enemy.RequiredInput = (InputType)Rand.Next(InputCount);
         enemy.BeatPosition = 0;
         enemies.Add(enemy);
         
         enemy = new Enemy();
         enemy.Crotchet = true;
+        enemy.RequiredInput = (InputType)Rand.Next(InputCount);
         enemy.BeatPosition = 2;
         enemies.Add(enemy);
 
@@ -46,11 +51,13 @@ public class Enemy
         
         Enemy enemy = new Enemy();
         enemy.Crotchet = true;
+        enemy.RequiredInput = (InputType)Rand.Next(InputCount);
         enemy.BeatPosition = 1;
         enemies.Add(enemy);
         
         enemy = new Enemy();
         enemy.Crotchet = true;
+        enemy.RequiredInput = (InputType)Rand.Next(InputCount);
         enemy.BeatPosition = 3;
         enemies.Add(enemy);
 
@@ -63,21 +70,25 @@ public class Enemy
         
         Enemy enemy = new Enemy();
         enemy.Crotchet = true;
+        enemy.RequiredInput = (InputType)Rand.Next(InputCount);
         enemy.BeatPosition = 0;
         enemies.Add(enemy);
         
         enemy = new Enemy();
         enemy.Crotchet = true;
+        enemy.RequiredInput = (InputType)Rand.Next(InputCount);
         enemy.BeatPosition = 1;
         enemies.Add(enemy);
         
         enemy = new Enemy();
         enemy.Crotchet = true;
+        enemy.RequiredInput = (InputType)Rand.Next(InputCount);
         enemy.BeatPosition = 2;
         enemies.Add(enemy);   
         
         enemy = new Enemy();
         enemy.Crotchet = true;
+        enemy.RequiredInput = (InputType)Rand.Next(InputCount);
         enemy.BeatPosition = 3;
         enemies.Add(enemy);
 
@@ -90,18 +101,21 @@ public class Enemy
         
         Enemy enemy = new Enemy();
         enemy.BeatPosition = 3;
+        enemy.RequiredInput = (InputType)Rand.Next(InputCount);
         enemies.Add(enemy);
         
         enemy = new Enemy();
         enemy.BeatPosition = 6;
+        enemy.RequiredInput = (InputType)Rand.Next(InputCount);
         enemies.Add(enemy);
 
         return enemies;
     }
 
+    public InputType RequiredInput;
     public GameObject Object;
     public int BeatPosition;
-    public bool Crotchet;
     public int InternalPos;
+    public bool Crotchet;
     public bool Active;
 }
