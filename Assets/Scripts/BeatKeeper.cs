@@ -14,6 +14,7 @@ public class BeatKeeper : MonoBehaviour
     public float Offset;
     public int CurrentCrotchetHit;
     public int CurrentEigthHit;
+    public int CurrentBar;
 
     public float SongPosition;
 
@@ -35,10 +36,10 @@ public class BeatKeeper : MonoBehaviour
 
     public void Play()
     {
-
         _SongDSPTime = AudioSettings.dspTime;
         _MainSource.Play();
 
+        CurrentBar = 0;
         CurrentCrotchetHit = 0;
         CurrentEigthHit = 0;
         IsPlaying = true;
@@ -52,23 +53,21 @@ public class BeatKeeper : MonoBehaviour
         {
             return;
         }
-        //
-        // if (Input.GetKeyDown(KeyCode.Space))
-        // {
-        //     Debug.Log("Yaay");
-        // }
-        //
+
         SongPosition = (float)((AudioSettings.dspTime - _SongDSPTime) * _MainSource.pitch - Offset);
         if (SongPosition > (CurrentCrotchetHit + 1) * Crotchet)
         {
             CurrentCrotchetHit += 1;
 
+            if (CurrentCrotchetHit > 4 && CurrentCrotchetHit % 4 == 1)
+            {
+                CurrentBar += 1;
+            }
         }
         
         if (SongPosition > (CurrentEigthHit + 1) * (Crotchet/2))
         {
             CurrentEigthHit += 1;
-
         }
     }
 }

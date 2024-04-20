@@ -36,32 +36,6 @@ public class Timeline : MonoBehaviour
         var dist = Vector3.Distance(_StartPosition.position, _HitPosition.position);
         LengthBetweenCrotchetSeg = dist / 4.0f;
         LengthBetweenEightsSeg = dist / 8.0f;
-
-        Enemy enemy = new Enemy();
-        enemy.Crotchet = true;
-        enemy.BeatPosition = 0;
-        enemy.Object = GameObject.Instantiate(_EnemyPrefab, this.transform);
-        enemy.Object.transform.position = _StartPosition.position;
-        Pattern.Add(enemy);
-        
-        enemy = new Enemy();
-        enemy.BeatPosition = 4;
-        enemy.Object =  GameObject.Instantiate(_EnemyPrefab, this.transform);
-        enemy.Object.transform.position = _StartPosition.position;
-        Pattern.Add(enemy);
-        
-        enemy = new Enemy();
-        enemy.BeatPosition = 5;
-        enemy.Object =  GameObject.Instantiate(_EnemyPrefab, this.transform);
-        enemy.Object.transform.position = _StartPosition.position;
-        Pattern.Add(enemy);
-        
-        enemy = new Enemy();
-        enemy.Crotchet = true;
-        enemy.BeatPosition = 2;
-        enemy.Object =  GameObject.Instantiate(_EnemyPrefab, this.transform);
-        enemy.Object.transform.position = _StartPosition.position;
-        Pattern.Add(enemy);
     }
 
     private void LateUpdate()
@@ -128,13 +102,4 @@ public class Timeline : MonoBehaviour
     {
         IsPlaying = true;
     }
-}
-
-public class Enemy
-{
-    public GameObject Object;
-    public int BeatPosition;
-    public bool Crotchet;
-    public int InternalPos;
-    
 }
