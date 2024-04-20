@@ -86,6 +86,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6933004627109735213}
   - component: {fileID: 2110400332421953979}
+  - component: {fileID: 5045793760451769914}
   m_Layer: 5
   m_Name: ProgressBar
   m_TagString: Untagged
@@ -133,6 +134,19 @@ MonoBehaviour:
   StartPoint: {fileID: 3330243123455748372}
   EndPoint: {fileID: 8226174480812036141}
   DickIcon: {fileID: 6336774006183267938}
+  CanvasGroup: {fileID: 5045793760451769914}
+--- !u!225 &5045793760451769914
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4753291208270758747}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &5275397691745613116
 GameObject:
   m_ObjectHideFlags: 0

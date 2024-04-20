@@ -143,6 +143,7 @@ public class Timeline : MonoBehaviour
     public void Stop()
     {
         IsPlaying = false;
+        _ProgressBar.Stop();
         CleanUp();
     }
 
