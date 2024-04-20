@@ -1,4 +1,13 @@
+using System;
 using UnityEngine;
+
+public enum InputType
+{
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT
+}
 
 public class GameManager : MonoBehaviour
 {
@@ -29,10 +38,23 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    public Action<InputType> OnInput;
+    public Action<int> OnHealthUpdate;
+    
     [field: SerializeField] 
     public int MaxLives { get; private set; } = 4;
 
-    public int CurrentLives { get; private set; }
+    private int currentLives;
+    public int CurrentLives
+    {
+        get => currentLives;
+
+        private set
+        {
+            currentLives = value;
+            OnHealthUpdate?.Invoke(currentLives);
+        }
+    }
 
     [Space, SerializeField] 
     private Timeline timeLine;
@@ -44,7 +66,12 @@ public class GameManager : MonoBehaviour
     
     [SerializeField]
     private BeatKeeper beatKeeper;
-    
+
+    public GameManager(Action<InputType> onInput)
+    {
+        OnInput = onInput;
+    }
+
     public BeatKeeper BeatKeeper
     {
         get => beatKeeper;
@@ -66,10 +93,41 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        Init();
+    }
+
     #endregion
 
     private void Init()
     {
         CurrentLives = MaxLives;
     }
+
+    #region Input Handling
+
+    private void OnInputHandler(InputType type)
+    {
+        CurrentLives -= 1;
+
+        if (CurrentLives <= 0)
+            CurrentLives = 4;
+        
+        OnInput?.Invoke(type);
+    }
+
+    public void OnUp() =>
+        OnInputHandler(InputType.UP);
+    
+    public void OnDown() =>
+        OnInputHandler(InputType.DOWN);
+    
+    public void OnLeft() =>
+        OnInputHandler(InputType.LEFT);
+    
+    public void OnRight() =>
+        OnInputHandler(InputType.RIGHT);
+
+    #endregion
 }
