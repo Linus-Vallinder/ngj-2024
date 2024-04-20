@@ -22,6 +22,9 @@ public class Timeline : MonoBehaviour
     
     [SerializeField]
     protected PlayerCharacter _PlayerCharacter;
+    
+    [SerializeField]
+    protected ProgressBar _ProgressBar;
 
     protected List<Enemy> ActiveEnemies;
     protected List<Bar> Stage;
@@ -117,7 +120,8 @@ public class Timeline : MonoBehaviour
                 GameManager.Instance.PlayerGotHit();
             }
         }
-
+        
+        _ProgressBar.UpdatePosition(_BeatKeeper.SongPosition);
         PrevValue = _BeatKeeper.SongPosition;
         InputTimeout -= Time.deltaTime;
     }
@@ -129,6 +133,7 @@ public class Timeline : MonoBehaviour
 
     public void Play(List<Bar> stage)
     {
+        _ProgressBar.Init(_BeatKeeper.MaxBars * _BeatKeeper.Crotchet * 4);
         this.Stage = stage;
         PrepBar(Stage[0]);
         PrepBar(Stage[1]);
