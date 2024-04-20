@@ -43,7 +43,7 @@ public class TextBox : MonoBehaviour
             child.gameObject.SetActive(true);
     }
     
-    public void HideTextbox()
+    public void HideTextBox()
     {
         GetComponent<Image>().color = Color.clear;
         foreach (var child in gameObject.GetComponentsInChildren<Transform>())
@@ -62,12 +62,13 @@ public class TextBox : MonoBehaviour
 
         if (instance == null)
         {
-            HideTextbox();
+            HideTextBox();
             OnEventDone?.Invoke(currentEvent);
             currentEvent = null;
             return;
         }
-            
+        
+        _typewriterByCharacter.SkipTypewriter();
         _titleTextMeshProUGUI.text = instance.SpeakerTitle;
         _textMeshProUGUI.text = instance.Text;
         _typewriterByCharacter.ShowText(_textMeshProUGUI.text);

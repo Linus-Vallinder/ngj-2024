@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using Cinemachine;
 
 public enum GameState
 {
@@ -147,6 +148,14 @@ public class GameManager : MonoBehaviour
         _scrollTexture.StartScroll();
     }
 
+    private static void TriggerImpulse()
+    {
+        var impulseSource = FindObjectOfType<CinemachineImpulseSource>();
+        
+        if (impulseSource != null)
+            impulseSource.GenerateImpulse(.2f);
+    }
+    
     public void HandleOnAny()
     {
         if (GameState == GameState.IDLE && OpeningIsDone)
@@ -169,14 +178,16 @@ public class GameManager : MonoBehaviour
                 
                 GameState = GameState.IDLE;
                 OpeningIsDone = true;
-                _textBox.HideTextbox();
+                _textBox.HideTextBox();
             };
-        } 
+        }  
     }
 
     public void PlayerGotHit()
     {
         CurrentLives -= 1;
+        TriggerImpulse();
+        
         if (CurrentLives <= 0)
         {
             OnReset();
@@ -193,7 +204,7 @@ public class GameManager : MonoBehaviour
                 
                 GameState = GameState.IDLE;
                 OpeningIsDone = true;
-                _textBox.HideTextbox();
+                _textBox.HideTextBox();
             };
         } 
     }
