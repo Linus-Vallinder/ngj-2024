@@ -19,6 +19,9 @@ public class Timeline : MonoBehaviour
     
     [SerializeField]
     protected Transform _StartPosition;
+    
+    [SerializeField]
+    protected PlayerCharacter _PlayerCharacter;
 
     protected List<Enemy> ActiveEnemies;
     protected List<Bar> Stage;
@@ -28,6 +31,8 @@ public class Timeline : MonoBehaviour
     protected float LengthBetweenEightsSeg;
     protected float PrevValue;
     protected float Clock;
+    protected float InputTimeout;
+    protected bool Stabbed;
     
     private void Start()
     {
@@ -40,6 +45,7 @@ public class Timeline : MonoBehaviour
 
         _BeatKeeper.NextBar += OnBarChanged;
         _BeatKeeper.StageEnded += Stop;
+        _BeatKeeper.QuaverUpdate += EightUpdate;
         GameManager.Instance.OnInput += PlayerInput;
     }
 
@@ -47,6 +53,7 @@ public class Timeline : MonoBehaviour
     {
         _BeatKeeper.NextBar -= OnBarChanged;
         _BeatKeeper.StageEnded -= Stop;
+        _BeatKeeper.QuaverUpdate -= EightUpdate;
         GameManager.Instance.OnInput -= PlayerInput;
     }
 
@@ -112,6 +119,12 @@ public class Timeline : MonoBehaviour
         }
 
         PrevValue = _BeatKeeper.SongPosition;
+        InputTimeout -= Time.deltaTime;
+    }
+
+    private void EightUpdate(int beat)
+    {
+        // _PlayerCharacter.EightTickUpate(beat);
     }
 
     public void Play(List<Bar> stage)
@@ -150,7 +163,7 @@ public class Timeline : MonoBehaviour
 
     protected void PlayerInput(InputType input)
     {
-        if (ActiveEnemies.Count <= 0)
+        if (ActiveEnemies.Count <= 0 || InputTimeout > 0)
         {
             return;    
         }
@@ -158,10 +171,13 @@ public class Timeline : MonoBehaviour
         if (!IsEnemyInRange(ActiveEnemies[0]) || input != ActiveEnemies[0].RequiredInput)
         {
             Debug.Log("TODO:: Need to figure out penalty");
-            GameManager.Instance.PlayerGotHit();
+            InputTimeout = 0.66f;
+            _PlayerCharacter.Stab(0.66f);
             return;
         }
-
+        
+        Stabbed = true;
+        _PlayerCharacter.Stab(0.22f);
         Destroy(ActiveEnemies[0].Object);
         ActiveEnemies.RemoveAt(0);
     }
