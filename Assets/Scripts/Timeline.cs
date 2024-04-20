@@ -166,7 +166,7 @@ public class Timeline : MonoBehaviour
         }
     }
 
-    protected void PlayerInput(InputType input)
+    private void PlayerInput(InputType input)
     {
         if (ActiveEnemies.Count <= 0 || InputTimeout > 0)
         {
@@ -181,6 +181,7 @@ public class Timeline : MonoBehaviour
             return;
         }
         
+        GameManager.Instance.OnPlayerStab?.Invoke();
         GameManager.TriggerImpulse();
         Stabbed = true;
         _PlayerCharacter.Stab(0.22f);

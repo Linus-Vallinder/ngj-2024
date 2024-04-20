@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    public Action OnPlayerStab;
     public Action<InputType> OnInput;
     public Action<int> OnHealthUpdate;
     public Action<GameState> OnGameStateUpdate;
