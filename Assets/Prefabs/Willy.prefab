@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 044d9a82b8e9b4717af7dd79dad6ba7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lerpDuration: 300
-  target: {x: 0, y: -1.1, z: 0}
+  lerpDuration: 500
+  target: {x: 1.62, y: -1.1, z: 0}
 --- !u!1 &6504042817838613797
 GameObject:
   m_ObjectHideFlags: 0
