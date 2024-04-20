@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -33,8 +31,14 @@ public class GameManager : MonoBehaviour
 
     [field: SerializeField] 
     public int MaxLives { get; private set; } = 4;
+
+    public int CurrentLives { get; private set; }
+
+    [SerializeField] 
+    private Timeline timeLine;
     
-    public int CurrentLives { get; set; }
+    [SerializeField]
+    private BeatKeeper beatKeeper;
     
     #region Unity Methods
 
@@ -57,5 +61,4 @@ public class GameManager : MonoBehaviour
     {
         CurrentLives = MaxLives;
     }
-    
 }
