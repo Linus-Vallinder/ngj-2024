@@ -161,8 +161,6 @@ public class Timeline : MonoBehaviour
     
     protected void OnBarChanged(int bar)
     {
-        Debug.LogWarning(bar);
-            
         if (bar > Stage.Count)
         {
             GameManager.Instance.OnSongFinished?.Invoke();
