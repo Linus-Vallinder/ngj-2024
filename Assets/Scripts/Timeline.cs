@@ -156,23 +156,22 @@ public class Timeline : MonoBehaviour
             Destroy(enemy.Object);
         }
 
-        Stage = null;
+        // Stage = null;
     }
     
     protected void OnBarChanged(int bar)
     {
+        Debug.LogWarning(bar);
+            
+        if (bar > Stage.Count)
+        {
+            GameManager.Instance.OnSongFinished?.Invoke();
+            return;
+        }
+        
         if (bar < Stage.Count - 1)
         {
             var selectBat = Stage[bar + 1];
-
-            if (selectBat == null)
-            {
-                Debug.Log("YOU HAVE FINISHED!");
-                GameManager.Instance.OnSongFinished?.Invoke();
-                
-                return;
-            }
-            
             PrepBar(selectBat);
         }
     }
@@ -210,7 +209,7 @@ public class Timeline : MonoBehaviour
     {
         foreach (var enemy in bar.Enemies)
         {
-            enemy.Object = GameObject.Instantiate(_EnemyPrefab, this.transform);
+            enemy.Object = Instantiate(_EnemyPrefab, transform);
             enemy.Object.transform.position = _StartPosition.position;
             enemy.Object.GetComponent<EnemyWorldObject>().Init(enemy);
         }
