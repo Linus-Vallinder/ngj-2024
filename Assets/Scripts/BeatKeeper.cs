@@ -52,23 +52,21 @@ public class BeatKeeper : MonoBehaviour
         {
             return;
         }
-        
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("Yaay");
-        }
-        
+        //
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     Debug.Log("Yaay");
+        // }
+        //
         SongPosition = (float)((AudioSettings.dspTime - _SongDSPTime) * _MainSource.pitch - Offset);
         if (SongPosition > (CurrentCrotchetHit + 1) * Crotchet)
         {
-            // Debug.Log("Yaay " + SongPosition + " huh " + (( 1 + CurrentHit) * Crotchet));
             CurrentCrotchetHit += 1;
 
         }
         
         if (SongPosition > (CurrentEigthHit + 1) * (Crotchet/2))
         {
-            // Debug.Log("Yaay " + SongPosition + " huh " + (( 1 + CurrentHit) * Crotchet));
             CurrentEigthHit += 1;
 
         }
