@@ -67,7 +67,6 @@ public class BeatKeeper : MonoBehaviour
         StageEnded?.Invoke();
     }
     
-    //Shit thing, change for better input handling
     void Update()
     {
         if (!IsPlaying)
