@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    public Action OnSongFinished;
     public Action OnPlayerStab;
     public Action<InputType> OnInput;
     public Action<int> OnHealthUpdate;
@@ -147,6 +148,7 @@ public class GameManager : MonoBehaviour
         GameState = GameState.PLAYING;
         CurrentLives = MaxLives;
         
+        FindObjectOfType<SpinSphere>().StartSpin();
         _healthUI.ShowUI();
         _scrollTexture.StartScroll();
     }
@@ -172,6 +174,9 @@ public class GameManager : MonoBehaviour
         else if (GameState == GameState.IDLE)
         {
             GameState = GameState.OPENING;
+
+            FindObjectOfType<StartBox>().HideBox();
+
             _textBox.ShowTextBox();
 
             _textBox.OnEventDone += @event =>
@@ -182,10 +187,6 @@ public class GameManager : MonoBehaviour
                 GameState = GameState.IDLE;
                 OpeningIsDone = true;
                 _textBox.HideTextBox();
-                
-                FindObjectOfType<SpinSphere>().StartSpin();
-                
-                Debug.Log("WE ARE SPINNIN OPE FULLY");
             };
         }  
     }
