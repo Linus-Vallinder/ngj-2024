@@ -34,11 +34,22 @@ public class GameManager : MonoBehaviour
 
     public int CurrentLives { get; private set; }
 
-    [SerializeField] 
+    [Space, SerializeField] 
     private Timeline timeLine;
+    public Timeline Timeline
+    {
+        get => timeLine;
+        private set => timeLine = value;
+    }
     
     [SerializeField]
     private BeatKeeper beatKeeper;
+    
+    public BeatKeeper BeatKeeper
+    {
+        get => beatKeeper;
+        private set => beatKeeper = value;
+    }
     
     #region Unity Methods
 
