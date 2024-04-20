@@ -3,14 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class Timeline : MonoBehaviour
 {
     [SerializeField] 
     protected BeatKeeper _BeatKeeper;
     
-    [SerializeField]
-    protected GameObject _ButtonPrefab;
+    [FormerlySerializedAs("_ButtonPrefab")] [SerializeField]
+    protected GameObject _EnemyPrefab;
     
     [SerializeField]
     protected Transform _HitPosition;
@@ -19,53 +20,48 @@ public class Timeline : MonoBehaviour
     protected Transform _StartPosition;
 
     protected List<GameObject> Buttons;
-    protected List<Thing> Pattern;
+    protected List<Enemy> Pattern;
     protected bool IsPlaying;
     protected int HitCount;
     protected float LengthBetweenCrotchetSeg;
     protected float LengthBetweenEightsSeg;
-    protected float Length;
     protected float PrevValue;
     protected float Clock;
     
     private void Start()
     {
         Buttons = new List<GameObject>();
-        Pattern = new List<Thing>();
+        Pattern = new List<Enemy>();
 
         var dist = Vector3.Distance(_StartPosition.position, _HitPosition.position);
         LengthBetweenCrotchetSeg = dist / 4.0f;
         LengthBetweenEightsSeg = dist / 8.0f;
-        Length = Mathf.Abs(_StartPosition.position.y - _HitPosition.position.y);
 
-        for (int i = 0; i < 8; i++)
-        {
-            var btn = GameObject.Instantiate(_ButtonPrefab, this.transform);
-            btn.transform.position = _StartPosition.position + new Vector3(0, LengthBetweenCrotchetSeg, 0) * (i +1);
-            Buttons.Add(btn);
-        }
-
-        Thing thing = new Thing();
-        thing.Crotchet = true;
-        thing.BeatPosition = 0;
-        thing.Button = Buttons[0];
-        Pattern.Add(thing);
+        Enemy enemy = new Enemy();
+        enemy.Crotchet = true;
+        enemy.BeatPosition = 0;
+        enemy.Object = GameObject.Instantiate(_EnemyPrefab, this.transform);
+        enemy.Object.transform.position = _StartPosition.position;
+        Pattern.Add(enemy);
         
-        thing = new Thing();
-        thing.BeatPosition = 4;
-        thing.Button = Buttons[1];
-        Pattern.Add(thing);
+        enemy = new Enemy();
+        enemy.BeatPosition = 4;
+        enemy.Object =  GameObject.Instantiate(_EnemyPrefab, this.transform);
+        enemy.Object.transform.position = _StartPosition.position;
+        Pattern.Add(enemy);
         
-        thing = new Thing();
-        thing.BeatPosition = 5;
-        thing.Button = Buttons[2];
-        Pattern.Add(thing);
+        enemy = new Enemy();
+        enemy.BeatPosition = 5;
+        enemy.Object =  GameObject.Instantiate(_EnemyPrefab, this.transform);
+        enemy.Object.transform.position = _StartPosition.position;
+        Pattern.Add(enemy);
         
-        thing = new Thing();
-        thing.Crotchet = true;
-        thing.BeatPosition = 2;
-        thing.Button = Buttons[3];
-        Pattern.Add(thing);
+        enemy = new Enemy();
+        enemy.Crotchet = true;
+        enemy.BeatPosition = 2;
+        enemy.Object =  GameObject.Instantiate(_EnemyPrefab, this.transform);
+        enemy.Object.transform.position = _StartPosition.position;
+        Pattern.Add(enemy);
     }
 
     private void LateUpdate()
@@ -90,39 +86,39 @@ public class Timeline : MonoBehaviour
             var t = Pattern[i];
             var fourthBeat = _BeatKeeper.CurrentCrotchetHit % 4;
             var eightBeat = _BeatKeeper.CurrentEigthHit % 8;
-            var fourthTime = (Clock - ((_BeatKeeper.CurrentCrotchetHit) * _BeatKeeper.Crotchet) ) / _BeatKeeper.Crotchet;
-            var eightTime = (Clock - ((_BeatKeeper.CurrentEigthHit) * (_BeatKeeper.Crotchet / 2)) ) / (_BeatKeeper.Crotchet/2);
-            var btn = t.Button;
+            var fourthTime = (Clock - ( (_BeatKeeper.CurrentCrotchetHit) * _BeatKeeper.Crotchet)) / _BeatKeeper.Crotchet;
+            var eightTime = (Clock - ( (_BeatKeeper.CurrentEigthHit) * (_BeatKeeper.Crotchet / 2) )) / (_BeatKeeper.Crotchet/2);
+            var enemy = t.Object;
             
-            if (t.Crotchet && fourthBeat == t.BeatPosition || btn.activeInHierarchy)
+            if (t.Crotchet && fourthBeat == t.BeatPosition || enemy.activeInHierarchy)
             {
-                t.InternalPos = (_BeatKeeper.CurrentCrotchetHit - t.BeatPosition) % 4;
-                var pos = btn.transform.position;
-                pos.y = Mathf.Lerp(_StartPosition.position.y - LengthBetweenCrotchetSeg * t.InternalPos, _StartPosition.position.y - LengthBetweenCrotchetSeg * (t.InternalPos + 1), fourthTime);
-                btn.transform.position = pos;
-                btn.SetActive(true);
+                t.InternalPos = (_BeatKeeper.CurrentCrotchetHit - t.BeatPosition) % (4 + 1);
+                var pos = enemy.transform.position;
+                pos.x = Mathf.Lerp(_StartPosition.position.x - LengthBetweenCrotchetSeg * t.InternalPos, _StartPosition.position.x - LengthBetweenCrotchetSeg * (t.InternalPos + 1), fourthTime);
+                enemy.transform.position = pos;
+                enemy.SetActive(true);
 
-                if (pos.y == _HitPosition.position.y)
+                if (pos.x <= _HitPosition.position.x - 0.2f)
                 {
-                    btn.SetActive(false);
+                    Debug.Log("Player get poked :OOOO");
+                    enemy.SetActive(false);
                 }
             }
 
-            if (!t.Crotchet && eightBeat == t.BeatPosition || btn.activeInHierarchy)
+            if (!t.Crotchet && eightBeat == t.BeatPosition || enemy.activeInHierarchy)
             {
-                t.InternalPos = (_BeatKeeper.CurrentEigthHit - t.BeatPosition) % 8;
-                var pos = btn.transform.position;
-                pos.y = Mathf.Lerp(_StartPosition.position.y - LengthBetweenEightsSeg * t.InternalPos, _StartPosition.position.y - LengthBetweenEightsSeg * (t.InternalPos + 1), eightTime);
-                btn.transform.position = pos;
-                btn.SetActive(true);
-                
-                
-                if (pos.y == _HitPosition.position.y)
+                t.InternalPos = (_BeatKeeper.CurrentEigthHit - t.BeatPosition) % (8 + 1);
+                var pos = enemy.transform.position;
+                pos.x = Mathf.Lerp(_StartPosition.position.x - LengthBetweenEightsSeg * t.InternalPos, _StartPosition.position.x - LengthBetweenEightsSeg * (t.InternalPos + 1), eightTime);
+                enemy.transform.position = pos;
+                enemy.SetActive(true);
+
+                if (pos.x <= _HitPosition.position.x - 0.2f)
                 {
-                    btn.SetActive(false);
+                    Debug.Log("Player get poked :OOOO");
+                    enemy.SetActive(false);
                 }
             }
-            
         }
 
         PrevValue = _BeatKeeper.SongPosition;
@@ -134,10 +130,11 @@ public class Timeline : MonoBehaviour
     }
 }
 
-public struct Thing
+public class Enemy
 {
-    public GameObject Button;
+    public GameObject Object;
     public int BeatPosition;
     public bool Crotchet;
     public int InternalPos;
+    
 }
