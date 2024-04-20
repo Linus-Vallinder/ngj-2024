@@ -6,6 +6,8 @@ using UnityEngine.Serialization;
 
 public class Timeline : MonoBehaviour
 {
+    public readonly float TimingOffset = 0.75f;
+        
     [SerializeField] 
     protected BeatKeeper _BeatKeeper;
     
@@ -38,17 +40,18 @@ public class Timeline : MonoBehaviour
 
         _BeatKeeper.NextBar += OnBarChanged;
         _BeatKeeper.StageEnded += Stop;
+        GameManager.Instance.OnInput += PlayerInput;
+    }
+
+    private void OnDestroy()
+    {
+        _BeatKeeper.NextBar -= OnBarChanged;
+        _BeatKeeper.StageEnded -= Stop;
+        GameManager.Instance.OnInput -= PlayerInput;
     }
 
     private void LateUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            _BeatKeeper.MaxBars = 16;
-            _BeatKeeper.Play();
-            Play(Bar.GetRandomStage(16));
-        }
-        
         if (!IsPlaying)
         {
             return;
@@ -100,11 +103,11 @@ public class Timeline : MonoBehaviour
             }
             
             enemyObject.transform.position = pos;
-            if (pos.x <= _HitPosition.position.x - 0.2f)
+            if (pos.x <= _HitPosition.position.x - TimingOffset)
             {
-                Debug.Log("Player get poked :OOOO");
                 ActiveEnemies.RemoveAt(i);
                 Destroy(enemyObject);
+                GameManager.Instance.PlayerGotHit();
             }
         }
 
@@ -122,6 +125,19 @@ public class Timeline : MonoBehaviour
     public void Stop()
     {
         IsPlaying = false;
+        CleanUp();
+    }
+
+    protected void CleanUp()
+    {
+        for (int i = ActiveEnemies.Count - 1; i >= 0; i--)
+        {
+            var enemy = ActiveEnemies[i];
+            ActiveEnemies.RemoveAt(i);
+            Destroy(enemy.Object);
+        }
+
+        Stage = null;
     }
     
     protected void OnBarChanged(int bar)
@@ -132,12 +148,37 @@ public class Timeline : MonoBehaviour
         }
     }
 
+    protected void PlayerInput(InputType input)
+    {
+        if (ActiveEnemies.Count <= 0)
+        {
+            return;    
+        }
+
+        if (!IsEnemyInRange(ActiveEnemies[0]) || input != ActiveEnemies[0].RequiredInput)
+        {
+            Debug.Log("TODO:: Need to figure out penalty");
+            GameManager.Instance.PlayerGotHit();
+            return;
+        }
+
+        Destroy(ActiveEnemies[0].Object);
+        ActiveEnemies.RemoveAt(0);
+    }
+
+    protected bool IsEnemyInRange(Enemy enemy)
+    {
+        var position = enemy.Object.transform.position;
+        return _HitPosition.position.x - TimingOffset <= position.x && position.x <= _HitPosition.position.x + TimingOffset;
+    }
+    
     protected void PrepBar(Bar bar)
     {
         foreach (var enemy in bar.Enemies)
         {
             enemy.Object = GameObject.Instantiate(_EnemyPrefab, this.transform);
             enemy.Object.transform.position = _StartPosition.position;
+            enemy.Object.GetComponent<EnemyWorldObject>().Init(enemy);
         }
     }
 }

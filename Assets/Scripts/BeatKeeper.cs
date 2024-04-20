@@ -30,6 +30,14 @@ public class BeatKeeper : MonoBehaviour
         }
     }
 
+    public float Quaver
+    {
+        get
+        {
+            return Crotchet / 2;
+        }
+    }
+
     public int BarAmount
     {
         get
@@ -44,8 +52,8 @@ public class BeatKeeper : MonoBehaviour
         _MainSource.Play();
 
         CurrentBar = 0;
-        CurrentCrotchetHit = -1;
-        CurrentEigthHit = -1;
+        CurrentCrotchetHit = 0;
+        CurrentEigthHit = 0;
         IsPlaying = true;
     }
 
@@ -84,7 +92,7 @@ public class BeatKeeper : MonoBehaviour
             }
         }
         
-        if (SongPosition > (CurrentEigthHit + 1) * (Crotchet/2))
+        if (SongPosition > (CurrentEigthHit + 1) * (Quaver))
         {
             CurrentEigthHit += 1;
         }

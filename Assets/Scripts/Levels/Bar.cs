@@ -11,9 +11,12 @@ public class Bar
         Enemies = new List<Enemy>();
     }
         
-    public static List<Bar> GetRandomStage(int length)
+    public static List<Bar> GetRandomStage(ref int length)
     {
         List<Bar> stage = new List<Bar>();
+        stage.Add(new Bar());
+        stage.Add(new Bar());
+        
         for (int i = 0; i < length; i++)
         {
             Bar bar = new Bar();
@@ -21,6 +24,7 @@ public class Bar
             stage.Add(bar);
         }
 
+        length += 2;
         return stage;
     }
 }

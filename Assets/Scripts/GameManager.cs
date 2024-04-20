@@ -47,8 +47,6 @@ public class GameManager : MonoBehaviour
     }
 
     #endregion
-
-    
     
     public Action<InputType> OnInput;
     public Action<int> OnHealthUpdate;
@@ -151,7 +149,16 @@ public class GameManager : MonoBehaviour
 
             BeatKeeper.MaxBars = 16;
             BeatKeeper.Play();
-            Timeline.Play(Bar.GetRandomStage(16));
+            Timeline.Play(Bar.GetRandomStage(ref BeatKeeper.MaxBars));
+        }
+    }
+
+    public void PlayerGotHit()
+    {
+        CurrentLives -= 1;
+        if (CurrentLives <= 0)
+        {
+            OnReset();
         }
     }
     
@@ -159,10 +166,10 @@ public class GameManager : MonoBehaviour
 
     private void OnInputHandler(InputType type)
     {
-        CurrentLives -= 1;
-
-        if (CurrentLives <= 0)
-            CurrentLives = 4;
+        // CurrentLives -= 1;
+        //
+        // if (CurrentLives <= 0)
+        //     CurrentLives = 4;
         
         OnInput?.Invoke(type);
     }
@@ -184,8 +191,13 @@ public class GameManager : MonoBehaviour
     
     public void OnReset()
     {
-        var scene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(scene.name);
+        _scrollTexture.StopScroll();
+        _healthUI.HideUI();
+        beatKeeper.Stop();
+        
+        GameState = GameState.IDLE;
+        // var scene = SceneManager.GetActiveScene();
+        // SceneManager.LoadScene(scene.name);
     }
     
     #endregion
