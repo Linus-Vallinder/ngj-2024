@@ -1,8 +1,12 @@
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class BeatKeeper : MonoBehaviour
 {
+    public event Action StageEnded;
+    public event Action<int> NextBar; 
+
     [SerializeField]
     protected AudioSource _MainSource;
 
@@ -15,7 +19,7 @@ public class BeatKeeper : MonoBehaviour
     public int CurrentCrotchetHit;
     public int CurrentEigthHit;
     public int CurrentBar;
-
+    public int MaxBars;
     public float SongPosition;
 
     public float Crotchet
@@ -40,11 +44,19 @@ public class BeatKeeper : MonoBehaviour
         _MainSource.Play();
 
         CurrentBar = 0;
-        CurrentCrotchetHit = 0;
-        CurrentEigthHit = 0;
+        CurrentCrotchetHit = -1;
+        CurrentEigthHit = -1;
         IsPlaying = true;
     }
-    
+
+    public void Stop()
+    {
+        //TODO::Fade out song here
+        IsPlaying = false;
+        
+        _MainSource.Stop();
+        StageEnded?.Invoke();
+    }
     
     //Shit thing, change for better input handling
     void Update()
@@ -62,6 +74,13 @@ public class BeatKeeper : MonoBehaviour
             if (CurrentCrotchetHit > 4 && CurrentCrotchetHit % 4 == 1)
             {
                 CurrentBar += 1;
+
+                if (CurrentBar > MaxBars)
+                {
+                    Stop();
+                }
+                
+                NextBar?.Invoke(CurrentBar);
             }
         }
         

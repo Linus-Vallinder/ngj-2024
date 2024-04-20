@@ -2,13 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = System.Random;
 
 public class Enemy
 {
     private static List<Func<List<Enemy>>> AllPatterns;
-    public static List<Enemy> GetPattern()
+    
+    public static List<Enemy> GetRandomPattern()
     {
-        return null;
+        Random rand = new Random();
+        return AllPatterns[rand.Next(AllPatterns.Count)].Invoke();
     }
 
     static Enemy()
@@ -34,9 +37,6 @@ public class Enemy
         enemy.BeatPosition = 2;
         enemies.Add(enemy);
 
-        // enemy.Object =  GameObject.Instantiate(_EnemyPrefab, this.transform);
-        // enemy.Object.transform.position = _StartPosition.position;
-
         return enemies;
     }    
     
@@ -53,10 +53,6 @@ public class Enemy
         enemy.Crotchet = true;
         enemy.BeatPosition = 3;
         enemies.Add(enemy);
-        
-
-        // enemy.Object =  GameObject.Instantiate(_EnemyPrefab, this.transform);
-        // enemy.Object.transform.position = _StartPosition.position;
 
         return enemies;
     }
@@ -84,10 +80,6 @@ public class Enemy
         enemy.Crotchet = true;
         enemy.BeatPosition = 3;
         enemies.Add(enemy);
-        
-
-        // enemy.Object =  GameObject.Instantiate(_EnemyPrefab, this.transform);
-        // enemy.Object.transform.position = _StartPosition.position;
 
         return enemies;
     }
@@ -104,9 +96,6 @@ public class Enemy
         enemy.BeatPosition = 6;
         enemies.Add(enemy);
 
-        // enemy.Object =  GameObject.Instantiate(_EnemyPrefab, this.transform);
-        // enemy.Object.transform.position = _StartPosition.position;
-
         return enemies;
     }
 
@@ -114,5 +103,5 @@ public class Enemy
     public int BeatPosition;
     public bool Crotchet;
     public int InternalPos;
-
+    public bool Active;
 }
