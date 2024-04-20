@@ -21,6 +21,7 @@ public class HealthUI : MonoBehaviour
 
     #endregion
 
+    //UGLY BUT WORKS WE NEED TO BE QUICK
     private void UpdateUI(int heartAmount)
     {
         switch (heartAmount)
