@@ -176,6 +176,7 @@ public class Timeline : MonoBehaviour
             return;
         }
         
+        GameManager.TriggerImpulse();
         Stabbed = true;
         _PlayerCharacter.Stab(0.22f);
         Destroy(ActiveEnemies[0].Object);

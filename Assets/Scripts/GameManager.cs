@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour
         _scrollTexture.StartScroll();
     }
 
-    private static void TriggerImpulse()
+    public static void TriggerImpulse()
     {
         var impulseSource = FindObjectOfType<CinemachineImpulseSource>();
         
