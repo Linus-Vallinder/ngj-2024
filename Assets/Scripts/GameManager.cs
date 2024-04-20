@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using System.Linq;
 using Cinemachine;
 
 public enum GameState
@@ -145,6 +146,7 @@ public class GameManager : MonoBehaviour
         OnSongFinished += () =>
         {
             Instantiate(_willyPrefab, _willyLocation, Quaternion.identity);
+            _healthUI.HideUI();
         };
     }
 
@@ -187,7 +189,7 @@ public class GameManager : MonoBehaviour
         {
             GameState = GameState.OPENING;
 
-            FindObjectOfType<StartBox>().HideBox();
+            FindObjectOfType<StartBox>(true).HideBox();
 
             _textBox.ShowTextBox();
 
@@ -228,6 +230,11 @@ public class GameManager : MonoBehaviour
             };
         } 
     }
+
+    public void TriggerEnd()
+    {
+        SceneManager.LoadScene(1);
+    }
     
     #region Input Handling
 
@@ -256,6 +263,11 @@ public class GameManager : MonoBehaviour
         _scrollTexture.StopScroll();
         _healthUI.HideUI();
         beatKeeper.Stop();
+
+        foreach (var willy in FindObjectsOfType<Willy>())
+            Destroy(willy);
+            
+        OpeningIsDone = false;
         
         GameState = GameState.IDLE;
         // var scene = SceneManager.GetActiveScene();

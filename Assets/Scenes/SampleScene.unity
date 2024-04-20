@@ -1774,7 +1774,7 @@ MonoBehaviour:
   timeLine: {fileID: 473430595}
   beatKeeper: {fileID: 1529970562}
   _willyPrefab: {fileID: 6668814643897207440, guid: 921b2304fc7d04b2095c51ca7357b9c3, type: 3}
-  _willyLocation: {x: 11, y: -1, z: 0}
+  _willyLocation: {x: 11, y: -1.1, z: 0}
 --- !u!4 &1610468577
 Transform:
   m_ObjectHideFlags: 0
