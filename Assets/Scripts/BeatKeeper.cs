@@ -9,7 +9,7 @@ public class BeatKeeper : MonoBehaviour
     public event Action<int> NextBar;
 
     [SerializeField]
-    protected AudioSource _MainSource;
+    protected MusicController _MainSource;
 
     protected double _SongDSPTime;
     protected bool IsPlaying;
@@ -39,13 +39,13 @@ public class BeatKeeper : MonoBehaviour
         }
     }
 
-    public int BarAmount
-    {
-        get
-        {
-            return (int)(_MainSource.clip.length / (BarLength * Crotchet));
-        }
-    }
+    // public int BarAmount
+    // {
+    //     get
+    //     {
+    //         return (int)(_MainSource.clip.length / (BarLength * Crotchet));
+    //     }
+    // }
 
     public void Play()
     {
@@ -74,7 +74,7 @@ public class BeatKeeper : MonoBehaviour
             return;
         }
 
-        SongPosition = (float)((AudioSettings.dspTime - _SongDSPTime) * _MainSource.pitch - Offset);
+        SongPosition = (float)((AudioSettings.dspTime - _SongDSPTime) * 1/*_MainSource.pitch*/ - Offset);
         if (SongPosition > (CurrentCrotchetHit + 1) * Crotchet)
         {
             CurrentCrotchetHit += 1;
