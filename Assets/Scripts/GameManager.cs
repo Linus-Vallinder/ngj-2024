@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public enum GameState
 {
@@ -47,9 +48,13 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    
+    
     public Action<InputType> OnInput;
     public Action<int> OnHealthUpdate;
     public Action<GameState> OnGameStateUpdate;
+    
+    public List<Bar> stageTest = new();
     
     [field: SerializeField] 
     public int MaxLives { get; private set; } = 4;
@@ -143,9 +148,10 @@ public class GameManager : MonoBehaviour
         if (GameState == GameState.IDLE)
         {
             Init();
-            
+
+            BeatKeeper.MaxBars = 16;
             BeatKeeper.Play();
-            Timeline.Play();
+            Timeline.Play(Bar.GetRandomStage(16));
         }
     }
     
