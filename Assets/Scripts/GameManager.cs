@@ -1,5 +1,14 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public enum GameState
+{
+    IDLE,
+    PLAYING,
+    WIN,
+    LOSE,
+}
 
 public enum InputType
 {
@@ -40,10 +49,11 @@ public class GameManager : MonoBehaviour
 
     public Action<InputType> OnInput;
     public Action<int> OnHealthUpdate;
+    public Action<GameState> OnGameStateUpdate;
     
     [field: SerializeField] 
     public int MaxLives { get; private set; } = 4;
-
+    
     private int currentLives;
     public int CurrentLives
     {
@@ -56,6 +66,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    [Space, SerializeField] 
+    private HealthUI _healthUI;
+
+    [SerializeField] 
+    private ScrollTexture _scrollTexture;
+    
     [Space, SerializeField] 
     private Timeline timeLine;
     public Timeline Timeline
@@ -77,6 +93,19 @@ public class GameManager : MonoBehaviour
         get => beatKeeper;
         private set => beatKeeper = value;
     }
+
+    private GameState gameState;
+
+    public GameState GameState
+    {
+        get => gameState;
+
+        set
+        {
+            gameState = value;
+            OnGameStateUpdate?.Invoke(gameState);
+        }        
+    }
     
     #region Unity Methods
 
@@ -95,16 +124,31 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Init();
+        GameState = GameState.IDLE;
     }
 
     #endregion
 
     private void Init()
     {
+        GameState = GameState.PLAYING;
         CurrentLives = MaxLives;
+        
+        _healthUI.ShowUI();
+        _scrollTexture.StartScroll();
     }
 
+    public void HandleOnAny()
+    {
+        if (GameState == GameState.IDLE)
+        {
+            Init();
+            
+            BeatKeeper.Play();
+            Timeline.Play();
+        }
+    }
+    
     #region Input Handling
 
     private void OnInputHandler(InputType type)
@@ -129,5 +173,14 @@ public class GameManager : MonoBehaviour
     public void OnRight() =>
         OnInputHandler(InputType.RIGHT);
 
+    public void OnAny() => 
+        HandleOnAny();
+    
+    public void OnReset()
+    {
+        var scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
+    }
+    
     #endregion
 }
