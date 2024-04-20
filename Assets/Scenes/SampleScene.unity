@@ -844,6 +844,8 @@ MonoBehaviour:
   Offset: 0.15
   CurrentCrotchetHit: 0
   CurrentEigthHit: 0
+  CurrentBar: 0
+  MaxBars: 0
   SongPosition: 0
 --- !u!4 &1529970563
 Transform:
@@ -1423,7 +1425,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 6e269473e5b9de248aa6bd6f7bf7d0e5, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
