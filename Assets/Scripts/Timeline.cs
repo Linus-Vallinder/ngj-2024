@@ -163,7 +163,17 @@ public class Timeline : MonoBehaviour
     {
         if (bar < Stage.Count - 1)
         {
-            PrepBar(Stage[bar + 1]);
+            var selectBat = Stage[bar + 1];
+
+            if (selectBat == null)
+            {
+                Debug.Log("YOU HAVE FINISHED!");
+                GameManager.Instance.OnSongFinished?.Invoke();
+                
+                return;
+            }
+            
+            PrepBar(selectBat);
         }
     }
 
