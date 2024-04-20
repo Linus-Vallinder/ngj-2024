@@ -114,6 +114,13 @@ public class GameManager : MonoBehaviour
         }        
     }
 
+    [Space, SerializeField]
+    private Willy _willyPrefab;
+
+    [SerializeField] 
+    private Vector3 _willyLocation;
+    
+    
     private ProgressBar _progressBar;
     private TextBox _textBox;
     private bool OpeningIsDone;
@@ -134,6 +141,11 @@ public class GameManager : MonoBehaviour
 
         _textBox = FindObjectOfType<TextBox>();
         _progressBar = FindObjectOfType<ProgressBar>();
+
+        OnSongFinished += () =>
+        {
+            Instantiate(_willyPrefab, _willyLocation, Quaternion.identity);
+        };
     }
 
     private void Start()
