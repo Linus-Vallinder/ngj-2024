@@ -157,6 +157,21 @@ public class GameManager : MonoBehaviour
             BeatKeeper.Play();
             Timeline.Play(Bar.GetRandomStage(ref BeatKeeper.MaxBars));
         }
+        else if (GameState == GameState.IDLE)
+        {
+            GameState = GameState.OPENING;
+            _textBox.ShowTextBox();
+
+            _textBox.OnEventDone += @event =>
+            {
+                if (!_textBox.IsOpeningEvent(@event))
+                    return;
+                
+                GameState = GameState.IDLE;
+                OpeningIsDone = true;
+                _textBox.HideTextbox();
+            };
+        } 
     }
 
     public void PlayerGotHit()
