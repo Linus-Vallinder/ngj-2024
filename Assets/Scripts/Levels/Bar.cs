@@ -14,7 +14,7 @@ public class Bar
     public static List<Bar> GetRandomStage(ref int length)
     {
         List<Bar> stage = new List<Bar>();
-        stage.Add(new Bar());
+        // stage.Add(new Bar());
         stage.Add(new Bar());
         
         for (int i = 0; i < length; i++)
@@ -24,7 +24,7 @@ public class Bar
             stage.Add(bar);
         }
 
-        length += 2;
+        length += 1;
         return stage;
     }
 }
