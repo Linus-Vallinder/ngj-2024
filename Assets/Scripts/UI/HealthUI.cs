@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class HealthUI : MonoBehaviour
 {
     [SerializeField] 
-    private Image[] hearts = new Image[4];
+    private Heart[] hearts = new Heart[4];
 
     #region Unity Methods
 
@@ -28,18 +28,18 @@ public class HealthUI : MonoBehaviour
 
     public void ShowUI()
     {
-        hearts[0].color = Color.white;
-        hearts[1].color = Color.white;
-        hearts[2].color = Color.white;
-        hearts[3].color = Color.white;
+        hearts[0].Resotre();
+        hearts[1].Resotre();
+        hearts[2].Resotre();
+        hearts[3].Resotre();
     }
 
     public void HideUI()
     {
-        hearts[0].color = Color.clear;
-        hearts[1].color = Color.clear;
-        hearts[2].color = Color.clear;
-        hearts[3].color = Color.clear;
+        hearts[0].Hide();
+        hearts[1].Hide();
+        hearts[2].Hide();
+        hearts[3].Hide();
     }
     
     //UGLY BUT WORKS WE NEED TO BE QUICK
@@ -48,34 +48,34 @@ public class HealthUI : MonoBehaviour
         switch (heartAmount)
         {
             case 0:
-                hearts[0].color = Color.clear;
-                hearts[1].color = Color.clear;
-                hearts[2].color = Color.clear;
-                hearts[3].color = Color.clear;
+                hearts[0].BreakHeart();
+                hearts[1].Hide();
+                hearts[2].Hide();
+                hearts[3].Hide();
                 break;
             case 1:
-                hearts[0].color = Color.white;
-                hearts[1].color = Color.clear;
-                hearts[2].color = Color.clear;
-                hearts[3].color = Color.clear;
+                hearts[0].Resotre();
+                hearts[1].BreakHeart();
+                hearts[2].Hide();
+                hearts[3].Hide();
                 break;
             case 2:
-                hearts[0].color = Color.white;
-                hearts[1].color = Color.white;
-                hearts[2].color = Color.clear;
-                hearts[3].color = Color.clear;
+                hearts[0].Resotre();
+                hearts[1].Resotre();
+                hearts[2].BreakHeart();
+                hearts[3].Hide();
                 break;
             case 3:
-                hearts[0].color = Color.white;
-                hearts[1].color = Color.white;
-                hearts[2].color = Color.white;
-                hearts[3].color = Color.clear;
+                hearts[0].Resotre();
+                hearts[1].Resotre();
+                hearts[2].Resotre();
+                hearts[3].BreakHeart();
                 break;
             case 4:
-                hearts[0].color = Color.white;
-                hearts[1].color = Color.white;
-                hearts[2].color = Color.white;
-                hearts[3].color = Color.white;
+                hearts[0].Resotre();
+                hearts[1].Resotre();
+                hearts[2].Resotre();
+                hearts[3].Resotre();
                 break;
         }
     }
