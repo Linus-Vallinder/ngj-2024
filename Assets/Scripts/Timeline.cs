@@ -123,7 +123,6 @@ public class Timeline : MonoBehaviour
                 }
             }
             
-            // Debug.Log("time " + time + " song Pos: " + Clock + " thing " + (_BeatKeeper.CurrentHit + 1) * _BeatKeeper.Crotchet);
         }
 
         PrevValue = _BeatKeeper.SongPosition;
