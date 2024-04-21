@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 
 public class Timeline : MonoBehaviour
 {
-    public readonly float TimingOffset = 0.75f;
+    public readonly float TimingOffset = 0.55f;
         
     [SerializeField] 
     protected BeatKeeper _BeatKeeper;
@@ -86,7 +86,7 @@ public class Timeline : MonoBehaviour
                     !enemy.Crotchet && eightBeat == enemy.BeatPosition && !enemy.Active)
                 {
                     enemy.Active = true;
-                    enemy.Object.SetActive(true);
+                    enemy.Object.gameObject.SetActive(true);
                     enemy.InternalPos = enemy.Crotchet ? _BeatKeeper.CurrentCrotchetHit : _BeatKeeper.CurrentEigthHit;
                     ActiveEnemies.Add(enemy);
                 }
@@ -116,7 +116,7 @@ public class Timeline : MonoBehaviour
             {
                 _PlayerCharacter.Stab(false);
                 ActiveEnemies.RemoveAt(i);
-                Destroy(enemyObject);
+                enemyObject.AttackAnimation();
                 GameManager.Instance.PlayerGotHit();
                 InputTimeout = 0;
             }
@@ -204,9 +204,9 @@ public class Timeline : MonoBehaviour
     {
         foreach (var enemy in bar.Enemies)
         {
-            enemy.Object = Instantiate(_EnemyPrefab, transform);
+            enemy.Object = Instantiate(_EnemyPrefab, transform).GetComponent<EnemyWorldObject>();
             enemy.Object.transform.position = _StartPosition.position;
-            enemy.Object.GetComponent<EnemyWorldObject>().Init(enemy);
+            enemy.Object.Init(enemy);
         }
     }
 }

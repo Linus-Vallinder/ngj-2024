@@ -113,7 +113,7 @@ public class Enemy
     }
 
     public InputType RequiredInput;
-    public GameObject Object;
+    public EnemyWorldObject Object;
     public int BeatPosition;
     public int InternalPos;
     public bool Crotchet;
