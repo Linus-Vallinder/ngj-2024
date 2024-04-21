@@ -114,6 +114,7 @@ public class Timeline : MonoBehaviour
             enemyObject.transform.position = pos;
             if (pos.x <= _HitPosition.position.x - TimingOffset)
             {
+                _PlayerCharacter.Stab(false);
                 ActiveEnemies.RemoveAt(i);
                 Destroy(enemyObject);
                 GameManager.Instance.PlayerGotHit();
@@ -155,8 +156,6 @@ public class Timeline : MonoBehaviour
             ActiveEnemies.RemoveAt(i);
             Destroy(enemy.Object);
         }
-
-        // Stage = null;
     }
     
     protected void OnBarChanged(int bar)
