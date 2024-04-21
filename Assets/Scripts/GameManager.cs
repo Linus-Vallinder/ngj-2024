@@ -263,6 +263,8 @@ public class GameManager : MonoBehaviour
     
     public void OnReset()
     {
+        GameState = GameState.IDLE;
+        
         FindObjectOfType<StartBox>(true).ShowBox();
         FindObjectOfType<SpinSphere>(true).StopSpin();
         
@@ -274,8 +276,6 @@ public class GameManager : MonoBehaviour
             
         OpeningIsDone = false;
         _textBox.HideTextBox();
-        
-        GameState = GameState.IDLE;
     }
     
     #endregion
