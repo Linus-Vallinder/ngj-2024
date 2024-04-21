@@ -39,14 +39,6 @@ public class BeatKeeper : MonoBehaviour
         }
     }
 
-    // public int BarAmount
-    // {
-    //     get
-    //     {
-    //         return (int)(_MainSource.clip.length / (BarLength * Crotchet));
-    //     }
-    // }
-
     public void Play()
     {
         _SongDSPTime = AudioSettings.dspTime;
@@ -97,5 +89,7 @@ public class BeatKeeper : MonoBehaviour
             CurrentEigthHit += 1;
             QuaverUpdate?.Invoke(CurrentEigthHit);
         }
+        
+        _MainSource.Tick(CurrentCrotchetHit);
     }
 }

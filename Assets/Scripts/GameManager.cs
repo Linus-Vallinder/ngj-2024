@@ -181,7 +181,7 @@ public class GameManager : MonoBehaviour
         {
             Init();
 
-            BeatKeeper.MaxBars = 16;
+            BeatKeeper.MaxBars = 20;
             BeatKeeper.Play();
             Timeline.Play(Bar.GetRandomStage(ref BeatKeeper.MaxBars));
         }

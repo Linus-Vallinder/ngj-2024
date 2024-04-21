@@ -2,14 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
 
 public class MusicController : MonoBehaviour
 {
     [SerializeField]
     protected List<AudioSource> AudioTrcks;
     
-    [Range(0,5)]
+    [Range(1,5)]
     public int Intensity;
+
+    public int IntensityThreshold = 16;
+    public TweenerCore<float, float, FloatOptions> TweenInProgress;
 
     private void Awake()
     {
@@ -17,11 +23,20 @@ public class MusicController : MonoBehaviour
         Stop();
     }
 
-    private void Update()
+    public void Tick(int Crotchet)
     {
         for (int i = 0; i < AudioTrcks.Count; i++)
         {
-            AudioTrcks[i].volume = i <= Intensity ? 1 : 0;
+            var target = i < Intensity ? 1 : 0;
+            if (AudioTrcks[i].volume != target && (TweenInProgress == null) )
+            {
+                TweenInProgress = AudioTrcks[i].DOFade(target, 1.2f).OnComplete(() => TweenInProgress = null);
+            }
+        }
+
+        if (Intensity * IntensityThreshold <= Crotchet)
+        {
+            Intensity += 1;
         }
     }
     
@@ -30,6 +45,7 @@ public class MusicController : MonoBehaviour
         for (int i = 0; i < AudioTrcks.Count; i++)
         {
             AudioTrcks[i].Play();
+            AudioTrcks[i].volume = i < Intensity ? 1 : 0;
         }
     }
 

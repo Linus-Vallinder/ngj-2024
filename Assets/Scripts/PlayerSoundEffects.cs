@@ -41,6 +41,6 @@ public class PlayerSoundEffects : MonoBehaviour
         //TODO: THIS IS PLAYING SOMETHING IDK IF WE SHOULD THOUGH
         Debug.LogWarning("FINDING SFX BUT NOT PLAYING CUS TIMING");
         
-        PlaySound(clip);
+        // PlaySound(clip);
     }
 }
