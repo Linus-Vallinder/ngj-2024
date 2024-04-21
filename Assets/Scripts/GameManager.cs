@@ -19,7 +19,8 @@ public enum InputType
     UP,
     DOWN,
     LEFT,
-    RIGHT
+    RIGHT,
+    ANY,
 }
 
 public class GameManager : MonoBehaviour
@@ -177,6 +178,8 @@ public class GameManager : MonoBehaviour
     
     public void HandleOnAny()
     {
+        OnInput?.Invoke(InputType.ANY);
+        
         if (GameState == GameState.IDLE && OpeningIsDone)
         {
             Init();
