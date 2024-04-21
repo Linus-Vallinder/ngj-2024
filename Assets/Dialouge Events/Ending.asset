@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Ending
   m_EditorClassIdentifier: 
   Instances:
-  - SpeakerTitle: Willy
-    Text: 'Dickie!
-
-      Save Me!'
   - SpeakerTitle: Dickie
-    Text: "Do not fear Willy! \nFor Dickie is here!"
+    Text: "Willy! You\u2019re safe!"
+  - SpeakerTitle: Willy
+    Text: Dickie! You made it!
+  - SpeakerTitle: ' '
+    Text: And then they lived happily ever after

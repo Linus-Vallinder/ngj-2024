@@ -9,7 +9,7 @@ public class TextBox : MonoBehaviour
     public DialougeEvent OpeningCutscene;
     public DialougeEvent EndingCutscene;
 
-    private int currentEventIndex = 0;
+    private int currentEventIndex;
     public DialougeEvent currentEvent;
 
     [Space, SerializeField]
@@ -51,6 +51,9 @@ public class TextBox : MonoBehaviour
     public void HideTextBox()
     {
         GetComponent<Image>().color = Color.clear;
+
+        _titleTextMeshProUGUI.text = "";
+        _textMeshProUGUI.text = "";
         
         _textMeshProUGUI.gameObject.SetActive(false);
         _titleTextMeshProUGUI.gameObject.SetActive(false);
