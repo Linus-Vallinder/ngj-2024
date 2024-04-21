@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Febucci.UI.Effects;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -51,7 +49,11 @@ public class Heart : MonoBehaviour
     public void Hide()
     {
         Renderer.color = Color.clear;
-
+        
+        if (Anim == null)
+            return;
+        
+        StopCoroutine(Anim);
     }
 
     IEnumerator Animation()

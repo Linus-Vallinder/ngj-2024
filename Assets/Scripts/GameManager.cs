@@ -264,6 +264,7 @@ public class GameManager : MonoBehaviour
     public void OnReset()
     {
         GameState = GameState.IDLE;
+        _textBox.currentEvent = _textBox.OpeningCutscene;
         
         FindObjectOfType<StartBox>(true).ShowBox();
         FindObjectOfType<SpinSphere>(true).StopSpin();
