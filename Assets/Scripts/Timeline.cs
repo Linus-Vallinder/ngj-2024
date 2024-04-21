@@ -180,8 +180,6 @@ public class Timeline : MonoBehaviour
             return;    
         }
 
-        Debug.Log("LE STAB");
-        
         if (!IsEnemyInRange(ActiveEnemies[0]) || input != ActiveEnemies[0].RequiredInput)
         {
             InputTimeout = 0.75f;

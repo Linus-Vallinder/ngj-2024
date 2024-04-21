@@ -10,7 +10,7 @@ public class TextBox : MonoBehaviour
     public DialougeEvent EndingCutscene;
 
     private int currentEventIndex = 0;
-    private DialougeEvent currentEvent;
+    public DialougeEvent currentEvent;
 
     [Space, SerializeField]
     private TypewriterByCharacter _typewriterByCharacter;
@@ -68,6 +68,9 @@ public class TextBox : MonoBehaviour
     
     private void GoToNext(InputType _)
     {
+        Debug.Log("GO TO NEXT");
+        Debug.Log(currentEvent);
+        
         if (currentEvent == null)
             return;
 
