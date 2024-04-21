@@ -21,8 +21,8 @@ public class Enemy
         AllPatterns = new List<Func<List<Enemy>>>();
         InputCount = Enum.GetValues(typeof(InputType)).Length;
         AllPatterns.Add(Patter_One);
-        AllPatterns.Add(Patter_Two);
-        AllPatterns.Add(Patter_Four);
+        // AllPatterns.Add(Patter_Two);
+        // AllPatterns.Add(Patter_Four);
         AllPatterns.Add(Patter_Three);
     }
 

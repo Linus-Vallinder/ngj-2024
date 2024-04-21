@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 
 public class Timeline : MonoBehaviour
 {
-    public readonly float TimingOffset = 0.55f;
+    public readonly float TimingOffset = 1.35f;
         
     [SerializeField] 
     protected BeatKeeper _BeatKeeper;
@@ -175,12 +175,12 @@ public class Timeline : MonoBehaviour
 
     private void PlayerInput(InputType input)
     {
-        if (ActiveEnemies.Count <= 0 || InputTimeout > 0 || input == InputType.ANY)
+        if (ActiveEnemies.Count <= 0 || InputTimeout > 0 || input != InputType.ANY)
         {
             return;    
         }
 
-        if (!IsEnemyInRange(ActiveEnemies[0]) || input != ActiveEnemies[0].RequiredInput)
+        if (!IsEnemyInRange(ActiveEnemies[0]))
         {
             InputTimeout = 0.75f;
             _PlayerCharacter.Stab(true);
@@ -197,7 +197,7 @@ public class Timeline : MonoBehaviour
     protected bool IsEnemyInRange(Enemy enemy)
     {
         var position = enemy.Object.transform.position;
-        return _HitPosition.position.x - TimingOffset <= position.x && position.x <= _HitPosition.position.x + TimingOffset;
+        return _HitPosition.position.x - TimingOffset <= position.x && position.x <= _HitPosition.position.x + (TimingOffset/4);
     }
     
     protected void PrepBar(Bar bar)
