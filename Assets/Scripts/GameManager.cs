@@ -260,18 +260,19 @@ public class GameManager : MonoBehaviour
     
     public void OnReset()
     {
-        _scrollTexture.StopScroll();
+        FindObjectOfType<StartBox>(true).ShowBox();
+        FindObjectOfType<SpinSphere>(true).StopSpin();
+        
         _healthUI.HideUI();
         beatKeeper.Stop();
-
+        
         foreach (var willy in FindObjectsOfType<Willy>())
             Destroy(willy);
             
         OpeningIsDone = false;
+        _textBox.HideTextBox();
         
         GameState = GameState.IDLE;
-        // var scene = SceneManager.GetActiveScene();
-        // SceneManager.LoadScene(scene.name);
     }
     
     #endregion
