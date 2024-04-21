@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class HealthUI : MonoBehaviour
 {
@@ -28,10 +27,10 @@ public class HealthUI : MonoBehaviour
 
     public void ShowUI()
     {
-        hearts[0].Resotre();
-        hearts[1].Resotre();
-        hearts[2].Resotre();
-        hearts[3].Resotre();
+        hearts[0].Restore();
+        hearts[1].Restore();
+        hearts[2].Restore();
+        hearts[3].Restore();
     }
 
     public void HideUI()
@@ -54,28 +53,28 @@ public class HealthUI : MonoBehaviour
                 hearts[3].Hide();
                 break;
             case 1:
-                hearts[0].Resotre();
+                hearts[0].Restore();
                 hearts[1].BreakHeart();
                 hearts[2].Hide();
                 hearts[3].Hide();
                 break;
             case 2:
-                hearts[0].Resotre();
-                hearts[1].Resotre();
+                hearts[0].Restore();
+                hearts[1].Restore();
                 hearts[2].BreakHeart();
                 hearts[3].Hide();
                 break;
             case 3:
-                hearts[0].Resotre();
-                hearts[1].Resotre();
-                hearts[2].Resotre();
+                hearts[0].Restore();
+                hearts[1].Restore();
+                hearts[2].Restore();
                 hearts[3].BreakHeart();
                 break;
             case 4:
-                hearts[0].Resotre();
-                hearts[1].Resotre();
-                hearts[2].Resotre();
-                hearts[3].Resotre();
+                hearts[0].Restore();
+                hearts[1].Restore();
+                hearts[2].Restore();
+                hearts[3].Restore();
                 break;
         }
     }

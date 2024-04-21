@@ -32,7 +32,7 @@ public class Heart : MonoBehaviour
         Anim = StartCoroutine(Animation());
     }
 
-    public void Resotre()
+    public void Restore()
     {
         Renderer.color = Color.white;
         Renderer.sprite = AnimationFrames[0];
@@ -44,6 +44,12 @@ public class Heart : MonoBehaviour
         LeftRenderer.velocity = Vector2.zero;
         LeftRenderer.angularVelocity = 0;
         LeftRenderer.position = LeftRenderStartingPos;
+        
+        RightRenderer.gameObject.SetActive(false);
+        LeftRenderer.gameObject.SetActive(false);
+
+        RightRenderer.GetComponent<RectTransform>().localPosition = new Vector3(43.5f, -1.7f);
+        LeftRenderer.GetComponent<RectTransform>().localPosition = new Vector3(-28.8f, 0.9f);
     }
 
     public void Hide()
@@ -70,8 +76,8 @@ public class Heart : MonoBehaviour
         LeftRenderer.gameObject.SetActive(true);
         RightRenderer.gameObject.SetActive(true);
         // yield return new WaitForSeconds(animTime/2);
-        LeftRenderer.AddForce(new Vector2(-1, 0.5f).normalized * 200, ForceMode2D.Impulse);
-        RightRenderer.AddForce(new Vector2(1, 0.5f).normalized * 200, ForceMode2D.Impulse);
+        // LeftRenderer.AddForce(new Vector2(-1, 0.5f).normalized * 200, ForceMode2D.Impulse);
+        // RightRenderer.AddForce(new Vector2(1, 0.5f).normalized * 200, ForceMode2D.Impulse);
 
         yield return new WaitForSeconds(10);
         LeftRenderer.gameObject.SetActive(false);
