@@ -43,17 +43,17 @@ public class TextBox : MonoBehaviour
             currentEvent = nextEvent;
         
         GetComponent<Image>().color = Color.white;
-        foreach (var child in gameObject.GetComponentsInChildren<Transform>())
-            child.gameObject.SetActive(true);
         
-        // GoToNext(0);
+        _textMeshProUGUI.gameObject.SetActive(true);
+        _titleTextMeshProUGUI.gameObject.SetActive(true);
     }
     
     public void HideTextBox()
     {
         GetComponent<Image>().color = Color.clear;
-        foreach (var child in gameObject.GetComponentsInChildren<Transform>())
-            child.gameObject.SetActive(false);
+        
+        _textMeshProUGUI.gameObject.SetActive(false);
+        _titleTextMeshProUGUI.gameObject.SetActive(false);
     }
 
     #region Compare
@@ -68,9 +68,6 @@ public class TextBox : MonoBehaviour
     
     private void GoToNext(InputType _)
     {
-        Debug.Log("GO TO NEXT");
-        Debug.Log(currentEvent);
-        
         if (currentEvent == null)
             return;
 
@@ -78,9 +75,12 @@ public class TextBox : MonoBehaviour
 
         if (instance == null)
         {
+            Debug.Log("NO INSTANCE WE NULL");
+            
             HideTextBox();
             OnEventDone?.Invoke(currentEvent);
             currentEvent = null;
+            currentEventIndex = 0;
             return;
         }
         

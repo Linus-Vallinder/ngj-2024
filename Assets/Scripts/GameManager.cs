@@ -265,6 +265,9 @@ public class GameManager : MonoBehaviour
     {
         GameState = GameState.IDLE;
         _textBox.currentEvent = _textBox.OpeningCutscene;
+
+        foreach (var enemy in FindObjectsOfType<EnemyWorldObject>())
+            Destroy(enemy.gameObject);
         
         FindObjectOfType<StartBox>(true).ShowBox();
         FindObjectOfType<SpinSphere>(true).StopSpin();
