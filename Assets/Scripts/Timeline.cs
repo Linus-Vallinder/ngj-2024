@@ -35,7 +35,6 @@ public class Timeline : MonoBehaviour
     protected float PrevValue;
     protected float Clock;
     protected float InputTimeout;
-    protected bool Stabbed;
     
     private void Start()
     {
@@ -118,6 +117,7 @@ public class Timeline : MonoBehaviour
                 ActiveEnemies.RemoveAt(i);
                 Destroy(enemyObject);
                 GameManager.Instance.PlayerGotHit();
+                InputTimeout = 0;
             }
         }
         
@@ -183,16 +183,14 @@ public class Timeline : MonoBehaviour
 
         if (!IsEnemyInRange(ActiveEnemies[0]) || input != ActiveEnemies[0].RequiredInput)
         {
-            Debug.Log("TODO:: Need to figure out penalty");
-            InputTimeout = 0.66f;
-            _PlayerCharacter.Stab(0.66f);
+            InputTimeout = 0.75f;
+            _PlayerCharacter.Stab(true);
             return;
         }
         
         GameManager.Instance.OnPlayerStab?.Invoke();
         GameManager.TriggerImpulse();
-        Stabbed = true;
-        _PlayerCharacter.Stab(0.22f);
+        _PlayerCharacter.Stab(false);
         Destroy(ActiveEnemies[0].Object);
         ActiveEnemies.RemoveAt(0);
     }
