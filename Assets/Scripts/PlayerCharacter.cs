@@ -1,4 +1,7 @@
+using DG.Tweening;
+using Febucci.UI.Effects;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCharacter : MonoBehaviour
 {
@@ -10,6 +13,9 @@ public class PlayerCharacter : MonoBehaviour
     
     [SerializeField]
     private Sprite _IdleFrame;
+    
+    [SerializeField]
+    private Image AttackLockOut;
 
     private float TimeOut;
 
@@ -31,6 +37,12 @@ public class PlayerCharacter : MonoBehaviour
         {
             _Animator.SetTrigger("StabHit");
         }
+    }
+
+    public void Lockout(float duration)
+    {
+        AttackLockOut.fillAmount = 1;
+        DOTween.To(() => AttackLockOut.fillAmount, value => AttackLockOut.fillAmount = value, 0, duration);
     }
 
     public void Idle()

@@ -1047,6 +1047,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 473430594}
     m_Modifications:
+    - target: {fileID: 2015947480857943399, guid: bf07c67d87f2c23429ad656acdc24bb9, type: 3}
+      propertyPath: _sfxClips.Array.size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7357121244368034596, guid: bf07c67d87f2c23429ad656acdc24bb9, type: 3}
       propertyPath: m_RootOrder
       value: -1

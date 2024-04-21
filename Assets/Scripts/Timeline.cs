@@ -184,6 +184,7 @@ public class Timeline : MonoBehaviour
         {
             InputTimeout = 0.75f;
             _PlayerCharacter.Stab(true);
+            _PlayerCharacter.Lockout(0.75f);    
             return;
         }
         
