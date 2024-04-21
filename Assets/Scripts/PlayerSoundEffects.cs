@@ -3,10 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+[Serializable]
+public class SoundEffectData
+{
+    [Header("Sound Effect Data & Options")]
+    public float PlayStartPosition = 0.0f;
+    [Space] public AudioClip SoundEffectClip;
+}
+
 public class PlayerSoundEffects : MonoBehaviour
 {
     [SerializeField] 
-    private List<AudioClip> _sfxClips = new();
+    private List<SoundEffectData> _sfxClips = new();
     
     private AudioSource _sfxSource;
 
@@ -23,10 +31,15 @@ public class PlayerSoundEffects : MonoBehaviour
 
     #endregion
 
-    private void PlaySound(AudioClip clip)
+    private void PlaySound(SoundEffectData sfx)
     {
         _sfxSource.Stop();
-        _sfxSource.clip = clip;
+        
+        _sfxSource.clip = sfx.SoundEffectClip;
+        
+        if (sfx.SoundEffectClip.length >= sfx.PlayStartPosition)
+            _sfxSource.time = sfx.PlayStartPosition;
+        
         _sfxSource.Play();
     }
 
@@ -38,9 +51,6 @@ public class PlayerSoundEffects : MonoBehaviour
         if (clip == null)
             return;
         
-        //TODO: THIS IS PLAYING SOMETHING IDK IF WE SHOULD THOUGH
-        Debug.LogWarning("FINDING SFX BUT NOT PLAYING CUS TIMING");
-        
-        // PlaySound(clip);
+        PlaySound(clip);
     }
 }

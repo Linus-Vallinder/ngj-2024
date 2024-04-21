@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class TextBox : MonoBehaviour
 {
     public DialougeEvent OpeningCutscene;
+    public DialougeEvent EndingCutscene;
 
     private int currentEventIndex = 0;
     private DialougeEvent currentEvent;
@@ -36,11 +37,16 @@ public class TextBox : MonoBehaviour
 
     #endregion
 
-    public void ShowTextBox()
+    public void ShowTextBox(DialougeEvent nextEvent = null)
     {
+        if (nextEvent != null)
+            currentEvent = nextEvent;
+        
         GetComponent<Image>().color = Color.white;
         foreach (var child in gameObject.GetComponentsInChildren<Transform>())
             child.gameObject.SetActive(true);
+        
+        // GoToNext(0);
     }
     
     public void HideTextBox()
@@ -50,8 +56,15 @@ public class TextBox : MonoBehaviour
             child.gameObject.SetActive(false);
     }
 
+    #region Compare
+
     public bool IsOpeningEvent(DialougeEvent @event) =>
         @event == OpeningCutscene;
+
+    public bool IsEndingEvent(DialougeEvent @event) =>
+        @event == EndingCutscene;
+
+    #endregion
     
     private void GoToNext(InputType _)
     {

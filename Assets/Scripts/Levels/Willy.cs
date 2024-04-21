@@ -26,11 +26,20 @@ public class Willy : MonoBehaviour
 
         if (!(transform.position.x < 1.62f + .01f)) 
             return;
+
+        var textBox = FindObjectOfType<TextBox>(true);
+
+        textBox.ShowTextBox(textBox.EndingCutscene);
         
-        Debug.LogWarning("WE ARE IN THE MIDDLE!");
-        FindObjectOfType<SpinSphere>().StopSpin();
-        
-        GameManager.Instance.TriggerEnd();
+        textBox.OnEventDone += @event =>
+        {
+            if (!textBox.IsEndingEvent(@event))
+                return;
+                
+            FindObjectOfType<SpinSphere>().StopSpin();
+            GameManager.Instance.TriggerEnd();
+            textBox.HideTextBox();
+        };
     }
     
     #endregion
