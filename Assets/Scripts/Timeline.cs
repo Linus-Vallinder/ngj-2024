@@ -119,6 +119,7 @@ public class Timeline : MonoBehaviour
                 enemyObject.AttackAnimation();
                 GameManager.Instance.PlayerGotHit();
                 InputTimeout = 0;
+                _PlayerCharacter.Lockout(0);
             }
         }
         
@@ -184,7 +185,7 @@ public class Timeline : MonoBehaviour
         {
             InputTimeout = 0.75f;
             _PlayerCharacter.Stab(true);
-            _PlayerCharacter.Lockout(0.75f);    
+            _PlayerCharacter.Lockout(0.75f);
             return;
         }
         

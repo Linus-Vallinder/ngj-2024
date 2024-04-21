@@ -57,7 +57,7 @@ public class EnemyWorldObject : MonoBehaviour
         float angularForce = rand.Next(45);
         Rbody.simulated = true;
         Rbody.AddForce(force * 4, ForceMode2D.Impulse);
-        Rbody.AddTorque(angularForce * 4, ForceMode2D.Impulse);
+        Rbody.AddTorque(angularForce * 2, ForceMode2D.Impulse);
         Rbody.transform.DOScale(Vector3.zero, 1.2f).OnComplete(() => Destroy(this.gameObject));
     }
 }
