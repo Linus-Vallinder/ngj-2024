@@ -234,8 +234,16 @@ public class GameManager : MonoBehaviour
         } 
     }
 
+    public bool HasEnded;
+    
     public void TriggerEnd()
     {
+        if (HasEnded)
+            return;
+
+        HasEnded = true;
+        
+        FindObjectOfType<SpinSphere>().StopSpin();
         SceneManager.LoadScene(1);
     }
     
@@ -266,6 +274,8 @@ public class GameManager : MonoBehaviour
         GameState = GameState.IDLE;
         _textBox.currentEvent = _textBox.OpeningCutscene;
 
+        HasEnded = false;
+        
         foreach (var enemy in FindObjectsOfType<EnemyWorldObject>())
             Destroy(enemy.gameObject);
         
