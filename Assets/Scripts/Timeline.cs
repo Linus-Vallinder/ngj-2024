@@ -175,11 +175,13 @@ public class Timeline : MonoBehaviour
 
     private void PlayerInput(InputType input)
     {
-        if (ActiveEnemies.Count <= 0 || InputTimeout > 0)
+        if (ActiveEnemies.Count <= 0 || InputTimeout > 0 || input == InputType.ANY)
         {
             return;    
         }
 
+        Debug.Log("LE STAB");
+        
         if (!IsEnemyInRange(ActiveEnemies[0]) || input != ActiveEnemies[0].RequiredInput)
         {
             InputTimeout = 0.75f;
