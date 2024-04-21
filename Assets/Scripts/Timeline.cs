@@ -190,7 +190,7 @@ public class Timeline : MonoBehaviour
         GameManager.Instance.OnPlayerStab?.Invoke();
         GameManager.TriggerImpulse();
         _PlayerCharacter.Stab(false);
-        Destroy(ActiveEnemies[0].Object);
+        ActiveEnemies[0].Object.Death();
         ActiveEnemies.RemoveAt(0);
     }
 
