@@ -19,6 +19,9 @@ public class PlayerCharacter : MonoBehaviour
 
     private float TimeOut;
 
+    [SerializeField] 
+    private ParticleSystem BLOOD;
+    
     void Awake()
     {
         _Renderer.sprite = _IdleFrame;
@@ -46,5 +49,9 @@ public class PlayerCharacter : MonoBehaviour
     {
         _Animator.SetTrigger("Idle");
     }
-    
+
+    public void BLOOD_ALL_THE_BLOOD()
+    {
+        BLOOD.Play();
+    }
 }

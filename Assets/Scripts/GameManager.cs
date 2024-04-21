@@ -212,6 +212,7 @@ public class GameManager : MonoBehaviour
     {
         CurrentLives -= 1;
         TriggerImpulse();
+        FindObjectOfType<PlayerCharacter>().BLOOD_ALL_THE_BLOOD();
         
         if (CurrentLives <= 0)
         {
