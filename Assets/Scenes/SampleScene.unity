@@ -1781,7 +1781,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _MainSource: {fileID: 1084277208995807487}
   BarLength: 4
-  BPM: 94
+  BPM: 92.5
   Offset: 0
   CurrentCrotchetHit: 0
   CurrentEigthHit: 0

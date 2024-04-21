@@ -21,9 +21,9 @@ public class Enemy
         AllPatterns = new List<Func<List<Enemy>>>();
         InputCount = Enum.GetValues(typeof(InputType)).Length;
         AllPatterns.Add(Patter_One);
-        // AllPatterns.Add(Patter_Two);
-        // AllPatterns.Add(Patter_Four);
-        AllPatterns.Add(Patter_Three);
+        AllPatterns.Add(Patter_Two);
+        // AllPatterns.Add(Patter_Four) ;
+        // AllPatterns.Add(Patter_Three);
     }
 
     private static List<Enemy> Patter_One()
@@ -39,7 +39,7 @@ public class Enemy
         enemy = new Enemy();
         enemy.Crotchet = true;
         enemy.RequiredInput = (InputType)Rand.Next(InputCount);
-        enemy.BeatPosition = 2;
+        enemy.BeatPosition = 1;
         enemies.Add(enemy);
 
         return enemies;
@@ -52,13 +52,23 @@ public class Enemy
         Enemy enemy = new Enemy();
         enemy.Crotchet = true;
         enemy.RequiredInput = (InputType)Rand.Next(InputCount);
-        enemy.BeatPosition = 1;
+        enemy.BeatPosition = 0;
         enemies.Add(enemy);
         
         enemy = new Enemy();
         enemy.Crotchet = true;
         enemy.RequiredInput = (InputType)Rand.Next(InputCount);
-        enemy.BeatPosition = 3;
+        enemy.BeatPosition = 1;
+        enemies.Add(enemy);
+        
+        enemy = new Enemy();
+        enemy.RequiredInput = (InputType)Rand.Next(InputCount);
+        enemy.BeatPosition = 5;
+        enemies.Add(enemy);
+        
+        enemy = new Enemy();
+        enemy.RequiredInput = (InputType)Rand.Next(InputCount);
+        enemy.BeatPosition = 6;
         enemies.Add(enemy);
 
         return enemies;

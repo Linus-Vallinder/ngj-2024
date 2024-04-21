@@ -56,6 +56,7 @@ public class BeatKeeper : MonoBehaviour
         IsPlaying = false;
         
         _MainSource.Stop();
+        _MainSource.Intensity = 1;
         StageEnded?.Invoke();
     }
     
