@@ -54,8 +54,10 @@ public class EnemyWorldObject : MonoBehaviour
         Renderer.sprite = DeathSprite;
         Random rand = new Random();
         Vector2 force = new Vector2(1 + rand.Next(7), 1 + rand.Next(7));
+        float angularForce = rand.Next(45);
         Rbody.simulated = true;
-        Rbody.AddForce(force, ForceMode2D.Impulse);
+        Rbody.AddForce(force * 4, ForceMode2D.Impulse);
+        Rbody.AddTorque(angularForce * 4, ForceMode2D.Impulse);
         Rbody.transform.DOScale(Vector3.zero, 1.2f).OnComplete(() => Destroy(this.gameObject));
     }
 }
