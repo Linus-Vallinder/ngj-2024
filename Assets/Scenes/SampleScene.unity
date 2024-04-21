@@ -216,6 +216,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OpeningCutscene: {fileID: 11400000, guid: ed5c83cfebb1c4ca4bb184520c0a759b, type: 2}
   EndingCutscene: {fileID: 11400000, guid: e59462ea1e41b42f78066e687657c2fb, type: 2}
+  currentEvent: {fileID: 0}
   _typewriterByCharacter: {fileID: 2113042730}
   _titleTextMeshProUGUI: {fileID: 1395615771}
   _textMeshProUGUI: {fileID: 2113042732}
@@ -930,7 +931,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 603362881}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 9.36, y: -2, z: 0}
+  m_LocalPosition: {x: 11, y: -2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1827,8 +1828,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1547454676}
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -4, y: -2, z: 0}
-  m_LocalScale: {x: 0.48, y: 0.3, z: 1}
+  m_LocalPosition: {x: -3.2, y: -1, z: 0}
+  m_LocalScale: {x: 3.73, y: 0.03, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 473430594}
@@ -1876,7 +1877,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.38431373}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
