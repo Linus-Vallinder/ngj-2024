@@ -6,6 +6,9 @@ public class EnemyWorldObject : MonoBehaviour
 {
     [SerializeField]
     protected SpriteRenderer InputRenderer;
+    
+    [SerializeField]
+    protected Animator _Animator;
 
     public void Init(Enemy model)
     {
@@ -31,5 +34,14 @@ public class EnemyWorldObject : MonoBehaviour
         
         InputRenderer.transform.Rotate(0, 0, angleOffset);
     }
-    
+
+    public void AttackAnimation()
+    {
+        _Animator.SetTrigger("Attack");   
+    }
+
+    public void Death()
+    {
+        Destroy(this.gameObject);   
+    }
 }
